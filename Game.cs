@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace LemonadeStand
 {
-    public class Game
+    public class Game : Inventory 
     {
         Player playerOne;
-        //Store store;
+        Store store;
         List<string> forecasts;
 
         List<Day> days;
 
         public Game()
         {
-            customers = new List<Customers>();
+            customers = new List<Customer>();
         }
         public void RunGame()
         {
@@ -49,8 +49,7 @@ namespace LemonadeStand
                 StoreTrip();
                 break;
             case "3":
-                GetForecast();
-                GetTemp();
+                Console.WriteLine(temp + " and " + forecast + ".")
                 break;
             case "4":
                 RunDay();
@@ -60,9 +59,9 @@ namespace LemonadeStand
                     break;            
         }
     }
-        public void ViewInventory(inventory)
+        public void ViewInventory()
         {
-            Console.WriteLine($"Lemons: {inventory[0]}, Sugar: {inventory[1]} cups, Ice: {inventory[2]} cubes, Money: ${inventory[3]}");
+            Console.WriteLine($"Lemons: {lemonCount}, Sugar: {sugarCount} cups, Ice: {iceCount} cubes, Money: ${moneyWallet}");
         }
 
 
