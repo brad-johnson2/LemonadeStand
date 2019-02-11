@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LemonadeStand
 {
-    public class Game : Inventory
+    public class Game
     {
         Player playerOne;
         Store store;
@@ -70,21 +70,14 @@ namespace LemonadeStand
                 case "4":
                     RunDay();
                     AdjustInventory();
-                    Console.WriteLine("You have " + moneyWallet + " dollars.");
+                    Console.WriteLine("You have " + inventory.moneyWallet + " dollars.");
                     break;
                 default:
                     MainMenu();
                     break;
             }
         }
-        public void ViewInventory()
-        {
-            Console.WriteLine($"Lemons: {inventory.lemonCount}, Sugar: {inventory.sugarCount} cups, Ice: {inventory.iceCount} cubes, Money: ${inventory.moneyWallet}");
-            MainMenu();
-        }
-
-
-
+      
         public int RunDay()
         {
 
@@ -97,7 +90,7 @@ namespace LemonadeStand
                    && recipe.sugarRecipe > customer.sugarLow
                    && recipe.iceRecipe > customer.iceLow)
                 {
-                    dailyCustomers++;
+                    dailyCustomers += 1;
 
                     //if (weather.forecast == "rainy" || weather.forecast == "stormy")
                     //{
@@ -179,10 +172,10 @@ namespace LemonadeStand
             switch (input2)
             {
                 case "1":
-                    if (moneyWallet >= 1)
+                    if (inventory.moneyWallet >= 1)
                     {
-                        store.lemonCount += 30;
-                        moneyWallet -= 1;
+                        inventory.lemonCount += 30;
+                        inventory.moneyWallet -= 1;
                     }
                     else
                     {
@@ -191,10 +184,10 @@ namespace LemonadeStand
                     StoreMenu();
                     break;
                 case "2":
-                    if (moneyWallet >= 2)
+                    if (inventory.moneyWallet >= 2)
                     {
-                        lemonCount += 70;
-                        moneyWallet -= 2;
+                        inventory.lemonCount += 70;
+                        inventory.moneyWallet -= 2;
                     }
                     else
                     {
@@ -203,10 +196,10 @@ namespace LemonadeStand
                     StoreMenu();
                     break;
                 case "3":
-                    if (moneyWallet >= 3)
+                    if (inventory.moneyWallet >= 3)
                     {
-                        lemonCount += 110;
-                        moneyWallet -= 3;
+                        inventory.lemonCount += 110;
+                        inventory.moneyWallet -= 3;
                     }
                     else
                     {
@@ -228,10 +221,10 @@ namespace LemonadeStand
             switch (input3)
             {
                 case "1":
-                    if (moneyWallet >= 1)
+                    if (inventory.moneyWallet >= 1)
                     {
-                        sugarCount += 15;
-                        moneyWallet -= 1;
+                        inventory.sugarCount += 15;
+                        inventory.moneyWallet -= 1;
                     }
                     else
                     {
@@ -240,10 +233,10 @@ namespace LemonadeStand
                     StoreMenu();
                     break;
                 case "2":
-                    if (moneyWallet >= 2)
+                    if (inventory.moneyWallet >= 2)
                     {
-                        sugarCount += 35;
-                        moneyWallet -= 2;
+                        inventory.sugarCount += 35;
+                        inventory.moneyWallet -= 2;
                     }
                     else
                     {
@@ -252,10 +245,10 @@ namespace LemonadeStand
                     StoreMenu();
                     break;
                 case "3":
-                    if (moneyWallet >= 3)
+                    if (inventory.moneyWallet >= 3)
                     {
-                        sugarCount += 80;
-                        moneyWallet -= 3;
+                        inventory.sugarCount += 80;
+                        inventory.moneyWallet -= 3;
                     }
                     else
                     {
@@ -278,10 +271,11 @@ namespace LemonadeStand
             switch (input4)
             {
                 case "1":
-                    if (moneyWallet >= 1)
+                    if (inventory.moneyWallet >= 1)
                     {
-                        iceCount += 50;
-                        moneyWallet -= 1;
+                        inventory.iceCount += 50;
+                        inventory.moneyWallet -= 1;
+                        Console.WriteLine(inventory.moneyWallet);
                     }
                     else
                     {
@@ -290,10 +284,10 @@ namespace LemonadeStand
                     StoreMenu();
                     break;
                 case "2":
-                    if (moneyWallet >= 2)
+                    if (inventory.moneyWallet >= 2)
                     {
-                        iceCount += 120;
-                        moneyWallet -= 2;
+                        inventory.iceCount += 120;
+                        inventory.moneyWallet -= 2;
                     }
                     else
                     {
@@ -302,10 +296,10 @@ namespace LemonadeStand
                     StoreMenu();
                     break;
                 case "3":
-                    if (moneyWallet >= 3)
+                    if (inventory.moneyWallet >= 3)
                     {
-                        iceCount += 250;
-                        moneyWallet -= 3;
+                        inventory.iceCount += 250;
+                        inventory.moneyWallet -= 3;
                     }
                     else
                     {
@@ -318,6 +312,11 @@ namespace LemonadeStand
                     break;
             }
 
+        }
+        public void ViewInventory()
+        {
+            Console.WriteLine($"Lemons: {inventory.lemonCount}, Sugar: {inventory.sugarCount} cups, Ice: {inventory.iceCount} cubes, Money: ${inventory.moneyWallet}");
+            MainMenu();
         }
     }
 

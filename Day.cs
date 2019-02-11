@@ -5,9 +5,7 @@ namespace LemonadeStand
 {
     internal class Day
     {
-        private List<string> forecasts;
         public List<Customer> customers = null;
-        int temp;
         Weather weather;
 
         public Day()
@@ -27,7 +25,7 @@ namespace LemonadeStand
         }
         public void GetCustomers()
         {
-            for (int i = 0; i <= 100; i++)
+            for (int i = 0; i <= 1000; i++)
             {
                 Customer customer = new Customer();
                 customers.Add(customer);
