@@ -10,30 +10,41 @@ namespace LemonadeStand
         public string forecast;
         List<string> forecasts;
 
+
         public Weather()
         {
             forecasts = new List<string>() { "sunny", "overcast", "windy", "rainy", "storms" };
-            Weather[] weather = { temp, actualTemp, forecast };
+            GetWeather();
         }
 
-        //methods 
-        public void GetTemp()
+       
+
+       public void GetWeather()
+        {
+            temp = GetTemp();
+            actualTemp = GetActualTemp();
+            forecast = GetForecast();
+        }
+
+        public int GetTemp()
         {
 
             Random rnd = new Random();
             temp = rnd.Next(55, 96);
+            return temp;
         }
 
-        public void GetActualTemp()
+        public int GetActualTemp()
         {
             int adjust;
 
             Random rnd = new Random();
             adjust = rnd.Next(-5, 6);
             actualTemp = temp + adjust;
+            return actualTemp;
         }
 
-        public void GetForecast()
+        public string GetForecast()
         {
 
 
@@ -44,32 +55,32 @@ namespace LemonadeStand
             {
                 case 1:
                     forecast = forecasts[0];
-                    break;
+                    return forecast;
                 case 2:
                     forecast = forecasts[1];
-                    break;
+                    return forecast;
                 case 3:
                     forecast = forecasts[2];
-                    break;
+                    return forecast;
                 case 4:
                     forecast = forecasts[3];
-                    break;
+                    return forecast;
                 case 5:
                     forecast = forecasts[4];
-                    break;
+                    return forecast;
                 default:
-                    break;
+                    return null;
             }
         }
 
-        public static implicit operator Weather(int v)
-        {
-            throw new NotImplementedException();
-        }
+        //public static implicit operator Weather(int v)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public static implicit operator Weather(string v)
-        {
-            throw new NotImplementedException();
-        }
+        //public static implicit operator Weather(string v)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -1,33 +1,34 @@
 ﻿using System;
 
 namespace LemonadeStand
-{ i
+{
     class Store : Inventory
     {
 
         //Get/Set??
 
         public void StoreMenu()
-    {
-        Console.WriteLine("Would you like to 1) Buy Lemons, 2) Buy Sugar, 3) Buy Ice or 4) Main Menu?");
-        string input = Console.ReadLine();
-        switch (input)
         {
-            case "1":
-                BuyLemons();
-                break;
-            case "2":
-                BuySugar();
-                break;
-            case "3":
-                BuyIce();
-                break;
-            //case "4":
-                //MainMenu();
-            default:
-                break;
+            Console.WriteLine("Would you like to 1) Buy Lemons, 2) Buy Sugar, 3) Buy Ice or 4) Main Menu?");
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    BuyLemons();
+                    break;
+                case "2":
+                    BuySugar();
+                    break;
+                case "3":
+                    BuyIce();
+                    break;
+                //case "4":
+                    //Game.MainMenu();
+                    //break;
+                default:
+                    break;
+            }
         }
-    }
 
 
         //Buy Lemons: $1 for 30, $2 for 70, $3 for 110
@@ -78,10 +79,10 @@ namespace LemonadeStand
                     break;
             }
         }
-            
 
 
-    //Buy Sugar: $1 for 15, $2 for 35, $3 for 80
+
+        //Buy Sugar: $1 for 15, $2 for 35, $3 for 80
         public void BuySugar()
         {
             Console.WriteLine("Would you like to buy 1)$1 for 15, 2)$2 for 35, 3)$3 for 80?");
@@ -128,12 +129,12 @@ namespace LemonadeStand
                     StoreMenu();
                     break;
             }
-             
-    }
+
+        }
 
 
 
-    //Buy Ice: $1 for 50, $2 for 120, $3 for 250
+        //Buy Ice: $1 for 50, $2 for 120, $3 for 250
         public void BuyIce()
         {
             Console.WriteLine("Would you like to buy 1)$1 for 50, 2)$2 for 120, 3)$3 for 250?");
@@ -165,7 +166,7 @@ namespace LemonadeStand
                     StoreMenu();
                     break;
                 case "3":
-                    if (moneyWallet >=3)
+                    if (moneyWallet >= 3)
                     {
                         iceCount += 250;
                         moneyWallet -= 3;
@@ -181,8 +182,8 @@ namespace LemonadeStand
                     break;
             }
 
+        }
+
+
     }
-
-
-
 }

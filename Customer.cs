@@ -5,21 +5,19 @@ namespace LemonadeStand
 {
      class Customer
     {
-        private double priceHigh;
-        private int tempHigh;
-        private int tempLow;
-        private int lemonsLow;
-        private int sugarLow;
-        private int iceLow;
+        public double priceHigh;
+        public int tempHigh;
+        public int tempLow;
+        public int lemonsLow;
+        public int sugarLow;
+        public int iceLow;
 
-        public double PriceHigh { get; set; }
-        public int TempHigh { get; set; }
-        public int TempLow { get; set; }
-        public int LemonsLow { get; set; }
-        public int SugarLow { get; set; }
-        public int IceLow { get; set; }
-
-
+        //public double PriceHigh { get; set; }
+        //public int TempHigh { get; set; }
+        //public int TempLow { get; set; }
+        //public int LemonsLow { get; set; }
+        //public int SugarLow { get; set; }
+        //public int IceLow { get; set; }
 
         public Customer()
         {
@@ -29,7 +27,6 @@ namespace LemonadeStand
             lemonsLow = GetLemonsLow();
             sugarLow = GetSugarLow();
             iceLow = GetIceLow();
-
         }
 
 
@@ -48,7 +45,7 @@ namespace LemonadeStand
             int result;
 
             Random rnd = new Random();
-            result = rnd.Next(75, 96);
+            result = rnd.Next(84, 96);
             return result;
         }
 
@@ -66,7 +63,7 @@ namespace LemonadeStand
             int result;
 
             Random rnd = new Random();
-            result = rnd.Next(1, 3);
+            result = rnd.Next(1, 2);
             return result;
         }
 
@@ -75,7 +72,7 @@ namespace LemonadeStand
             int result;
 
             Random rnd = new Random();
-            result = rnd.Next(1, 3);
+            result = rnd.Next(1, 2);
             return result;
         }
 
@@ -84,21 +81,9 @@ namespace LemonadeStand
             int result;
 
             Random rnd = new Random();
-            result = rnd.Next(2, 6);
+            result = rnd.Next(2, 3);
             return result;
         }
 
     }           
 }
-            //if(lemons > 7 || lemons< 5)
-            //{
-                
-            //}
-            //if(sugar > 7 || sugar< 5)
-            //{
-                 
-            //}
-            //if(ice > 10 || ice< 6)
-            //{
-                 
-            //}

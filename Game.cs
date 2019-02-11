@@ -3,18 +3,31 @@ using System.Collections.Generic;
 
 namespace LemonadeStand
 {
-    public class Game : Inventory 
+    public class Game : Inventory
     {
         Player playerOne;
         Store store;
-        List<string> forecasts;
-
+        List<Customer> customers;
         List<Day> days;
+        Recipe recipe;
+        Weather weather;
+        Inventory inventory;
+        Customer customer;
+        int dailyCustomers = 0;
 
+
+        
         public Game()
         {
             customers = new List<Customer>();
+            days = new List<Day>();
+            recipe = new Recipe();
+            weather = new Weather();
+            inventory = new Inventory();
+            customer = new Customer();
+            store = new Store();
         }
+
         public void RunGame()
         {
             SetUp();
@@ -22,6 +35,7 @@ namespace LemonadeStand
             RunDay();
             AdjustInventory();
         }
+
 
         private void SetUp()
         {
@@ -33,54 +47,279 @@ namespace LemonadeStand
                 Day day = new Day();
                 days.Add(day);
             }
-
-
-        static void MainMenu()
-    {
-        Console.WriteLine("What would you like to do? 1) View Inventory 2) Go to the Store 3) View Forecast 4) Play Game");
-        string displayOption = Console.ReadLine();
-
-        switch (displayOption)
-        {
-            case "1":
-                ViewInventory();
-                break;
-            case "2":
-                StoreTrip();
-                break;
-            case "3":
-                Console.WriteLine(temp + " and " + forecast + ".")
-                break;
-            case "4":
-                RunDay();
-                break;
-            default:
-                MainMenu();
-                    break;            
         }
-    }
+
+
+        public void MainMenu()
+        {
+            Console.WriteLine("What would you like to do? 1) View Inventory 2) Go to the Store 3) View Forecast 4) Play Game");
+            string displayOption = Console.ReadLine();
+
+            switch (displayOption)
+            {
+                case "1":
+                    ViewInventory();
+                    break;
+                case "2":
+                    StoreMenu();
+                    break;
+                case "3":
+                    Console.WriteLine("It is supposed to be " + weather.temp + " degrees and " + weather.forecast + ".");
+                    MainMenu();
+                    break;
+                case "4":
+                    RunDay();
+                    AdjustInventory();
+                    Console.WriteLine("You have " + moneyWallet + " dollars.");
+                    break;
+                default:
+                    MainMenu();
+                    break;
+            }
+        }
         public void ViewInventory()
         {
-            Console.WriteLine($"Lemons: {lemonCount}, Sugar: {sugarCount} cups, Ice: {iceCount} cubes, Money: ${moneyWallet}");
+            Console.WriteLine($"Lemons: {inventory.lemonCount}, Sugar: {inventory.sugarCount} cups, Ice: {inventory.iceCount} cubes, Money: ${inventory.moneyWallet}");
+            MainMenu();
         }
 
 
 
-        private void RunDay()
+        public int RunDay()
         {
-            //Prompt for the day's recipe
-            //Should show actual weather to affect <Customers>
-            //Should update inventory 
-            //should show profit 
+
+            for (int i = 0; i <= customers.Count; i++)
+            {
+                if (recipe.dailyPrice < customer.priceHigh
+                   && weather.actualTemp > customer.tempLow
+                   && weather.actualTemp < customer.tempHigh
+                   && recipe.lemonRecipe > customer.lemonsLow
+                   && recipe.sugarRecipe > customer.sugarLow
+                   && recipe.iceRecipe > customer.iceLow)
+                {
+                    dailyCustomers++;
+
+                    //if (weather.forecast == "rainy" || weather.forecast == "stormy")
+                    //{
+                    //    dailyCustomers -= 
+                    //}
+                }
+                else
+                {
+                    dailyCustomers += 0;
+                }
+            }
+                return dailyCustomers;
+
+        }
+    
+
+        private void AdjustInventory()
+        {
+            for (int i = 1; i <= dailyCustomers; i++)
+            {
+                inventory.lemonCount -= recipe.lemonRecipe;
+
+                if (inventory.lemonCount < 0)
+                {
+                    inventory.lemonCount = 0;
+                    break;
+                }
+
+                inventory.sugarCount -= recipe.sugarRecipe;
+
+                if (inventory.sugarCount < 0)
+                {
+                    inventory.sugarCount = 0;
+                    break;
+                }
+
+                inventory.iceCount -= recipe.iceRecipe;
+
+                if (inventory.iceCount < 0)
+                {
+                    inventory.iceCount = 0;
+                    break;
+                }
+
+                inventory.moneyWallet += recipe.dailyPrice;
+
+            }
+            //iceCount = 0 for next day
         }
 
-        private void StoreTrip()
+
+        public void StoreMenu()
         {
-            //"View Inventory, Buy, Play Game"
-            //Should display forecast for the day
-            //Buy should update Inventory incuding Money
+            Console.WriteLine("Would you like to 1) Buy Lemons, 2) Buy Sugar, 3) Buy Ice or 4) Main Menu?");
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    BuyLemons();
+                    break;
+                case "2":
+                    BuySugar();
+                    break;
+                case "3":
+                    BuyIce();
+                    break;
+                case "4":
+                    MainMenu();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void BuyLemons()
+        {
+            Console.WriteLine("Would you like to buy 1)$1 for 30, 2)$2 for 70, 3)$3 for 110?");
+            string input2 = Console.ReadLine();
+            switch (input2)
+            {
+                case "1":
+                    if (moneyWallet >= 1)
+                    {
+                        store.lemonCount += 30;
+                        moneyWallet -= 1;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough money.");
+                    }
+                    StoreMenu();
+                    break;
+                case "2":
+                    if (moneyWallet >= 2)
+                    {
+                        lemonCount += 70;
+                        moneyWallet -= 2;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough money.");
+                    }
+                    StoreMenu();
+                    break;
+                case "3":
+                    if (moneyWallet >= 3)
+                    {
+                        lemonCount += 110;
+                        moneyWallet -= 3;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough money.");
+                    }
+                    StoreMenu();
+                    break;
+                default:
+                    StoreMenu();
+                    break;
+            }
+        }
+
+
+        public void BuySugar()
+        {
+            Console.WriteLine("Would you like to buy 1)$1 for 15, 2)$2 for 35, 3)$3 for 80?");
+            string input3 = Console.ReadLine();
+            switch (input3)
+            {
+                case "1":
+                    if (moneyWallet >= 1)
+                    {
+                        sugarCount += 15;
+                        moneyWallet -= 1;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough money.");
+                    }
+                    StoreMenu();
+                    break;
+                case "2":
+                    if (moneyWallet >= 2)
+                    {
+                        sugarCount += 35;
+                        moneyWallet -= 2;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough money.");
+                    }
+                    StoreMenu();
+                    break;
+                case "3":
+                    if (moneyWallet >= 3)
+                    {
+                        sugarCount += 80;
+                        moneyWallet -= 3;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough money.");
+                    }
+                    StoreMenu();
+                    break;
+                default:
+                    StoreMenu();
+                    break;
+            }
+
+        }
+
+
+        public void BuyIce()
+        {
+            Console.WriteLine("Would you like to buy 1)$1 for 50, 2)$2 for 120, 3)$3 for 250?");
+            string input4 = Console.ReadLine();
+            switch (input4)
+            {
+                case "1":
+                    if (moneyWallet >= 1)
+                    {
+                        iceCount += 50;
+                        moneyWallet -= 1;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough money.");
+                    }
+                    StoreMenu();
+                    break;
+                case "2":
+                    if (moneyWallet >= 2)
+                    {
+                        iceCount += 120;
+                        moneyWallet -= 2;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough money.");
+                    }
+                    StoreMenu();
+                    break;
+                case "3":
+                    if (moneyWallet >= 3)
+                    {
+                        iceCount += 250;
+                        moneyWallet -= 3;
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough money.");
+                    }
+                    StoreMenu();
+                    break;
+                default:
+                    StoreMenu();
+                    break;
+            }
 
         }
     }
 
-}
+        
+    }
